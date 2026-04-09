@@ -3,8 +3,26 @@ import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
 
 const eslintConfig = defineConfig([
+ 
   ...nextVitals,
   ...nextTs,
+  {
+     rules:{
+    "@typescript-eslint/no-explicit-any":"off",
+    semi:"error",
+    quotes:["error","double"],    
+    // "linebreak-style": ["error", "unix"] ,
+    // "no-multiple-empty-lines": [
+    //   "error",
+    //   {
+    //     max: 1,      
+    //     maxEOF: 1,   
+    //     maxBOF: 0    
+    //   }
+    // ]
+     }
+  },
+  
   // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:
