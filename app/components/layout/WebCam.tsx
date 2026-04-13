@@ -4,7 +4,7 @@ import Webcam from "react-webcam";
 const WebCam = () => {
   const webcamRef = useRef(null);
   return (
-    <div>
+    <span>
       <Webcam
         audio={false}
         ref={webcamRef}
@@ -12,9 +12,7 @@ const WebCam = () => {
         width={700}
         height={950}
       />
-      <div>
-    </div>
-    </div>
+    </span>
   );
 };
 

@@ -5,7 +5,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   className?: string;
 }
 
-const Input = ({ icon: Icon, className = "", ...props }: InputProps) => {
+const Input = ({ icon: Icon, className = "",value="", ...props }: InputProps) => {
   return (
     <div className="relative mb-6">
       {Icon && (
@@ -19,6 +19,7 @@ const Input = ({ icon: Icon, className = "", ...props }: InputProps) => {
         focus:border-green-500 focus:ring-2 focus:ring-green-500  placeholder-gray-400 
         transition duration-200 ${className}`}
       />
+      
     </div>
   );
 };

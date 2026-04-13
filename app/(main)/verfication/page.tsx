@@ -2,7 +2,7 @@
 
 import KycDashboard from "@/app/components/layout/KycDashboard";
 import { panSchema } from "@/app/lib/validation/validationSchema";
-import { dynamicImport } from "@/app/utils/common";
+import { dynamicImport, LazyLoadImage } from "@/app/utils/common";
 import {  PAN_REGEX } from "@/app/utils/types";
 
 import { useCallback, useState } from "react";
@@ -86,7 +86,8 @@ const Verification = () => {
     onScan={handleScan}
     img="/image/pan_card.jpg"
     isLoading={isLoading}
-    LazyComponent={LazyComponent}        
+    LazyComponent={LazyComponent}    
+    LazyLoadImage={LazyLoadImage}    
     description="Please add PAN number and wait for the verification"/>
   
   );

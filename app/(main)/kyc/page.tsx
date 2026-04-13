@@ -11,7 +11,8 @@ const columns = [
 ];
 const KycVerification = () => {
     return (
-        <Dashboard heading="KYC Verification" data={userEmailData} columns={columns}/>       
+        <Dashboard heading="KYC Verification" data={userEmailData} columns={columns}/>
+       
     );
 };
 

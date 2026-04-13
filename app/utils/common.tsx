@@ -15,3 +15,5 @@ export function dynamicImport<P = object>(
     ...options,
   });
 }
+export const LazyLoadImage = dynamicImport(() => import("../components/layout/Picture"), { ssr: false }, "Loading Image...");
+export const CameraModal = dynamicImport(() => import("../components/layout/Picture"));

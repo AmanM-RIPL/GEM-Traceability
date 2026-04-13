@@ -28,10 +28,10 @@ import { isMobile } from "@/app/utils/types";
 //     };
 // }
 const menuItems = [
-    { label: "Dashboard", href: "/main/dashboard", icon: <IoHomeOutline /> },
-    { label: "KYC Verification", href: "/main/kyc", icon: <GoPerson /> },
-    { label: "Shipment", href: "/main/shipment", icon: <BsBox /> },
-    { label: "Fleet Tracking", href: "/main/fleet", icon: <FaTruck /> },
+    { label: "Dashboard", href: "/dashboard", icon: <IoHomeOutline /> },
+    { label: "KYC Verification", href: "/kyc", icon: <GoPerson /> },
+    { label: "Shipment", href: "/shipment", icon: <BsBox /> },
+    { label: "Fleet Tracking", href: "/fleet", icon: <FaTruck /> },
 ];
 
 const Sidebar = () => {
@@ -93,8 +93,8 @@ const Sidebar = () => {
                             </li>
                         ))}
                         <hr className="mb-4 border-b border-gray-300" />
-                        {pathname === "/main/fleet" && (<Input type="text" placeholder="Search" className="mb-2" />)}
-                        {pathname === "/main/fleet" && (FleetTrackingData.map((item) => (
+                        {pathname === "/fleet" && (<Input type="text" placeholder="Search" className="mb-2" />)}
+                        {pathname === "/fleet" && (FleetTrackingData.map((item) => (
                             <button
                                 key={item.vehicleId}
                                 onClick={() => {

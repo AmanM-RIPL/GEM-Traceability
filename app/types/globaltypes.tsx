@@ -1,5 +1,7 @@
 import {  type ChangeEvent, type FormEvent } from "react";
-
+export interface FormData{
+  email:string;
+}
 export interface KycDashboardProps {
     heading?: string;
     description?: string;
@@ -11,7 +13,7 @@ export interface KycDashboardProps {
     img:string;
     show?:boolean
     isLoading?: boolean;    
-    onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+    onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
     onScan: () => void;
     LazyLoadImage:React.ElementType
     LazyComponent:React.ElementType

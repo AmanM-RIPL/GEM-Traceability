@@ -1,7 +1,7 @@
 import { memo, useMemo } from "react";
 import Table from "@/app/components/ui/Table";
 import { shipmentData, kycData } from "../../../../data/user";
-import { TabsProps } from "@/app/types/type";
+import { TabsProps } from "@/app/types/globaltypes";
 
 // Move column definitions outside — they're static, no need to recreate
 const SHIPMENT_COLUMNS = [

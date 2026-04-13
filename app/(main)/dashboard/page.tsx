@@ -1,7 +1,13 @@
+// "use client";
 import { memo, useMemo } from "react";
 import Card from "../../components/ui/Card";
 import { FaRegUser } from "react-icons/fa";
 import Tabs from "./subcomponents/Tabs";
+// import { useSession } from "next-auth/react";
+// import { redirect } from "next/navigation";
+// import { auth } from "@/auth";'
+// import { redirect } from "next/navigation";
+// import { useRouter } from "next/router";
 
 // Move static data outside component to prevent recreation on every render
 const CARD_DATA = [
@@ -16,10 +22,15 @@ const TABS_CONFIG = {
   description: "Recent Shipment Overview",
 } as const;
 
-const DashBoard = memo(() => {
-  // Memoize the icon to avoid JSX recreation on each render
+const  DashBoard =  memo(() => {
+  //  const router = useRouter();
+  // const {data:session}= useSession();
+  // console.log(session,"seee");
+  // if(!session){
+  //   router.push("/login");
+  // }
   const userIcon = useMemo(() => <FaRegUser />, []);
-
+  
   return (
     <div className="w-full m-0 h-fit px-5 lg:pl-[300px] flex flex-col">
       <h1 className="text-2xl font-bold mb-4 text-[#046A38]">Dashboard</h1>
@@ -27,7 +38,7 @@ const DashBoard = memo(() => {
       <div className="grid md:grid-cols-4 gap-1">
         {CARD_DATA.map((card) => (
           <Card
-            key={card.title}        // use unique key instead of hardcoded "1"
+            key={card.title}        
             Icon={userIcon}
             title={card.title}
             value={card.value}

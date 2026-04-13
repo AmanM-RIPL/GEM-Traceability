@@ -1,4 +1,4 @@
-import { detailsProps, PictureProps } from "@/app/types/type";
+import { detailsProps, PictureProps } from "@/app/types/globaltypes";
 import Image from "next/image";
 
 const Picture = ({image,details}:PictureProps &{details?:detailsProps}) => {

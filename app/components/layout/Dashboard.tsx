@@ -4,7 +4,7 @@ import Input from "../ui/Input";
 import Table from "@/app/components/ui/Table";
 import { ToggleButton } from "../ui/ToggleButton";
 import Status from "./Status";
-import { columns } from "@/app/types/type";
+import { columns } from "@/app/types/globaltypes";
 
 const Dashboard = ({
   heading,

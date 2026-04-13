@@ -1,6 +1,6 @@
 import React from "react";
 import Input from "../ui/Input";
-import { KycDashboardProps } from "@/app/types/type";
+import { KycDashboardProps } from "@/app/types/globaltypes";
 import { FaCamera } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 

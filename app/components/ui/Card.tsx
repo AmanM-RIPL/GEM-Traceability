@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import { CardProps } from "@/app/types/type";
+import { CardProps } from "@/app/types/globaltypes";
 
 const Card: React.FC<CardProps> = ({
     Icon,

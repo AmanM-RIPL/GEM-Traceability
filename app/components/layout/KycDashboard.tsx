@@ -1,6 +1,6 @@
 "use client";
 import { motion, AnimatePresence } from "framer-motion";
-import { KycDashboardProps } from "../../types/type";
+import { KycDashboardProps } from "../../types/globaltypes";
 import { containerVariants, itemVariants } from "@/app/utils/types";
 import Form from "./Form";
 import { dynamicImport } from "@/app/utils/common";
@@ -19,7 +19,6 @@ const KycDashboard = ({
     LazyComponent,
     img
 }: KycDashboardProps) => {
-
     return (
         <div className="grid min-h-[calc(100vh-7rem)]  grid-cols-1 bg-white lg:grid-cols-2 lg:pl-[320px]">
             <div className="order-1 flex justify-center bg-white px-6 py-10 sm:px-10 lg:order-1 lg:px-14 lg:py-16">
