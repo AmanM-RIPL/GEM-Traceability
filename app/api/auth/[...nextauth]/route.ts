@@ -1,6 +1,3 @@
-import { db } from "@/app/db";
-import { users } from "@/app/db/schema/schema";
-import { NextRequest, NextResponse } from "next/server";
 
 import { handlers } from "@/auth";// Referring to the auth.ts we just created
 export const { GET, POST } = handlers;

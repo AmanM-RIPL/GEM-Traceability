@@ -39,17 +39,18 @@ const KycDashboard = ({
                         {description}
                     </motion.p>
                     <Form
-                    value={value}
-                    error={error}
-                    isValid={isValid}
-                    onChange={onChange}
-                    onScan={onScan}
-                    isLoading={isLoading}
+                        value={value}
+                        error={error}
+                        isValid={isValid}
+                        onChange={onChange}
+                        onScan={onScan}
+                        isLoading={isLoading}
+                      
                     />
                 </motion.div>
             </div>
             <div className="order-2 relative flex min-h-[260px] items-center justify-start overflow-hidden bg-[#046A38] px-6  sm:min-h-[320px] sm:px-10 lg:order-2  lg:px-16 ">
-                {show && show ? <LazyComponent /> : <LazyLoadImage image={img} />}
+                {show && LazyComponent  ? <LazyComponent /> : <LazyLoadImage image={img} />}
 
             </div>
         </div>

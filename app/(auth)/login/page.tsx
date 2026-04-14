@@ -1,56 +1,74 @@
 "use client";
-
 import { motion } from "framer-motion";
 import { Loader, Mail, Gem } from "lucide-react";
 import { FaApple, FaGoogle } from "react-icons/fa";
 import { useState } from "react";
-import Link from "next/link";
-
-import Input from "../../components/ui/Input";
-import { auth, signIn } from "@/auth";
-import { useSession } from "next-auth/react";
-
+import Input from "../../components/ui/input";
 import { signInWithApple, signInWithGoogle } from "@/app/actions/auth";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/app/components/ui/input-otp";
+import { signIn } from "next-auth/react";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
-  const  {data} = useSession();
-  console.log(data,"seesion data");
-  // const session  = session();
+  const [step, setStep] = useState<"email" | "otp">("email");
+  const [otp, setOtp] = useState("");
 
+  const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setMessage("");
+    try {
+//       const result = await signIn("credentials", {
+//   email,
+//   otp,
+//   redirect: false,
+// });
+      const res = await fetch("/api/user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.message || "Something went wrong");
+      }
+      setMessage("Login email sent successfully ✅");
+      setEmail("");
+      setStep("otp");
+    } catch (error: any) {
+      setMessage(error.message || "Something went wrong");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  const handleVerifyOtp = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setMessage("");
 
-  // ✅ Email login API
-  // const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-  //   setIsLoading(true);
-  //   setMessage("");
-
-  //   try {
-  //     const res = await fetch("/api", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({ email }),
-  //     });
-
-  //     const data = await res.json();
-
-  //     if (!res.ok) {
-  //       throw new Error(data.message || "Something went wrong");
-  //     }
-
-  //     setMessage("Login email sent successfully ✅");
-  //     setEmail("");
-  //   } catch (error: any) {
-  //     setMessage(error.message || "Something went wrong");
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
-
+    try {
+      const res = await fetch("/api/verify-otp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, otp }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.message || "Invalid OTP");
+      }
+      setMessage("Login successful 🎉");
+    } catch (error: any) {
+      setMessage(error.message || "OTP verification failed");
+    } finally {
+      setIsLoading(false);
+    }
+  };
   return (
     <div className="min-h-screen grid grid-cols-1 lg:grid-cols-2">
       {/* Left — Form */}
@@ -80,7 +98,7 @@ const Login = () => {
 
           {/* ✅ Email Form */}
           {/* onSubmit={handleSignIn} */}
-          <form className="space-y-4">
+          {/* <form onSubmit={step === "email" ? handleSignIn : handleVerifyOtp}className="space-y-4">
             <Input
               icon={Mail}
               type="email"
@@ -88,9 +106,11 @@ const Login = () => {
               value={email}
               onChange={(e: any) => setEmail(e.target.value)}
             />
+            
 
             <motion.button
               type="submit"
+
               disabled={isLoading}
               className="w-full py-3 px-4 bg-[#046A38] text-white font-bold rounded-lg hover:bg-[#035c30]"
               whileHover={{ scale: 1.02 }}
@@ -100,6 +120,71 @@ const Login = () => {
                 <Loader className="animate-spin mx-auto" size={24} />
               ) : (
                 "Sign In"
+              )}
+            </motion.button>
+          </form> */}
+          <form
+            onSubmit={step === "email" ? handleSignIn : handleVerifyOtp}
+            className="space-y-5"
+          >
+            {/* EMAIL FIELD */}
+            {step === "email" && (
+              <Input
+                icon={Mail}
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e: any) => setEmail(e.target.value)}
+              />
+            )}
+
+            {/* OTP FIELD */}
+            {step === "otp" && (
+              <div className="text-center">
+                <p className="text-sm text-gray-500 mb-3">
+                  Enter OTP sent to <span className="font-semibold">{email}</span>
+                </p>
+
+                <InputOTP
+                  maxLength={6}
+                  value={otp}
+                  onChange={setOtp}
+                  className="w-full"
+                >
+                  <InputOTPGroup className="flex justify-center gap-2">
+                    {[...Array(6)].map((_, i) => (
+                      <InputOTPSlot
+                        key={i}
+                        index={i}
+                        className="w-12 h-12 border rounded-lg text-lg font-bold"
+                      />
+                    ))}
+                  </InputOTPGroup>
+                </InputOTP>
+
+                {/* RESEND */}
+                <button
+                  type="button"
+                  onClick={() => setStep("email")}
+                  className="text-xs text-[#046A38] mt-3 hover:underline"
+                >
+                  Change Email
+                </button>
+              </div>
+            )}
+
+            {/* BUTTON */}
+            <motion.button
+              type="submit"
+              disabled={isLoading}
+              className="w-full py-3 bg-[#046A38] text-white rounded-lg font-semibold"
+            >
+              {isLoading ? (
+                <Loader className="animate-spin mx-auto" />
+              ) : step === "email" ? (
+                "Send OTP"
+              ) : (
+                "Verify OTP"
               )}
             </motion.button>
           </form>
@@ -135,16 +220,6 @@ const Login = () => {
             </button>
           </div>
 
-          {/* Signup */}
-          <p className="text-sm text-gray-500 text-center mt-6">
-            Don&apos;t have an account?{" "}
-            <Link
-              href="/signup"
-              className="text-[#046A38] font-medium hover:underline"
-            >
-              Sign up
-            </Link>
-          </p>
         </motion.div>
       </div>
 

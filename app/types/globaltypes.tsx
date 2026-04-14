@@ -10,13 +10,13 @@ export interface KycDashboardProps {
     value: string;
     error?: string;
     isValid?: boolean;
-    img:string;
+    img?:string;
     show?:boolean
     isLoading?: boolean;    
     onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
     onScan: () => void;
-    LazyLoadImage:React.ElementType
-    LazyComponent:React.ElementType
+    LazyLoadImage?:React.ElementType
+    LazyComponent?:React.ElementType
     onSubmit?: (e: FormEvent<HTMLFormElement>) => void;
 }
 export type PictureProps={

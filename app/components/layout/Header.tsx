@@ -1,9 +1,9 @@
 "use client";
 import { Search } from "lucide-react";
-import Input from "../ui/Input";
 import { FaBell } from "react-icons/fa6";
 import Link from "next/link";
 import { useState } from "react";
+import Input from "../ui/input";
 
 const Header = () => {
   const [showNotifications, setShowNotifications] = useState(false);

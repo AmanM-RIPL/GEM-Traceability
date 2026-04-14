@@ -1,15 +1,15 @@
 import React from "react";
-import Input from "../ui/Input";
 import { KycDashboardProps } from "@/app/types/globaltypes";
 import { FaCamera } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
+import { Inputs } from "../ui/Inputs";
 
 const Form = ({ onChange, value, error, onScan, isLoading, isValid }: KycDashboardProps) => {
     return (
         <form className="space-y-4">
             <div className="flex gap-2">
                 <div className="relative flex-1">
-                    <Input
+                    <Inputs
                         type="text"
                         placeholder="e.g. ABCDE1234F"
                         className={`w-full font-mono tracking-widest uppercase pr-10 transition-all ${error ? "border-red-400 focus:ring-red-200" : ""

@@ -1,10 +1,11 @@
 "use client";
 import { FaSearch } from "react-icons/fa";
-import Input from "../ui/Input";
+
 import Table from "@/app/components/ui/Table";
 import { ToggleButton } from "../ui/ToggleButton";
 import Status from "./Status";
 import { columns } from "@/app/types/globaltypes";
+import Input from "../ui/input";
 
 const Dashboard = ({
   heading,

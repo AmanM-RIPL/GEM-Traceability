@@ -7,11 +7,11 @@ import { IoHomeOutline } from "react-icons/io5";
 import { GoPerson } from "react-icons/go";
 import { BsBox } from "react-icons/bs";
 import { FaTruck } from "react-icons/fa6";
-import Input from "../ui/Input";
 import { FleetTrackingData } from "@/data/user";
 import { usePathname } from "next/navigation";
 import { Truck, Bike } from "lucide-react";
 import { isMobile } from "@/app/utils/types";
+import { Inputs } from "../ui/Inputs";
 // import { useDispatch, useSelector } from "react-redux";
 // import { logout } from "@/store/slices/userSlice";
 
@@ -93,7 +93,7 @@ const Sidebar = () => {
                             </li>
                         ))}
                         <hr className="mb-4 border-b border-gray-300" />
-                        {pathname === "/fleet" && (<Input type="text" placeholder="Search" className="mb-2" />)}
+                        {pathname === "/fleet" && (<Inputs type="text" placeholder="Search" className="mb-2" />)}
                         {pathname === "/fleet" && (FleetTrackingData.map((item) => (
                             <button
                                 key={item.vehicleId}

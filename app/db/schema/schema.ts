@@ -2,13 +2,15 @@ import { pgTable, uuid,serial, varchar, timestamp, uniqueIndex, integer, text, b
 
 export const users = pgTable("users", {
   id: uuid("id").primaryKey().defaultRandom(),
-  roleId: integer("role_id").references(() => roles.id),
+  roleId: integer("role_id").references(() => roles.id),  
   email: varchar("email", { length: 255 }).notNull(),
   phoneNumber: varchar("phone_number", { length: 255 }),
   passwordHash: text("password_hash"),
   isActive: boolean("is_active"),
   lastLogin: timestamp("last_login"),
   createdAt: timestamp("created_at").notNull(),
+  verificationToken: varchar("verification_token", { length: 255 }),
+  verificationTokenExpires: timestamp("verification_token_expires"),
 });
 
 export const roles = pgTable(

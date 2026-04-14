@@ -10,13 +10,10 @@ export async function proxy(request: NextRequest) {
   if (PUBLIC.has(pathname)) {
     return NextResponse.next();
   }
-
   const session = await auth();
-  console.log(session);
   if (!session) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
-
   return NextResponse.next();
 }
 

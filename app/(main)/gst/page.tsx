@@ -1,5 +1,5 @@
 "use client";
-import Input from "@/app/components/ui/Input";
+import { Inputs } from "@/app/components/ui/Inputs";
 import { gstSchema } from "@/app/lib/validation/validationSchema";
 import { dynamicImport, LazyLoadImage } from "@/app/utils/common";
 import { containerVariants, itemVariants } from "@/app/utils/types";
@@ -9,8 +9,11 @@ import { FaCamera } from "react-icons/fa";
 import { FaCirclePlus } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
 
-
-function Gst({ onRemove, id }) {
+type RemoveType = {
+  id: number;
+  onRemove: (id: number) => void;
+};
+function Gst({ onRemove, id }:RemoveType) {
     const [gstValue, setGstValue] = useState("");
     const [error, setError] = useState("");
     const [cameraOpen, setCameraOpen] = useState(false);
@@ -36,7 +39,7 @@ function Gst({ onRemove, id }) {
             <div className="flex gap-2">
                 <div className="relative flex-1">
 
-                    <Input
+                    <Inputs
                         type="text"
                         placeholder="e.g. ABCDE1234F"
                         className={`w-full font-mono tracking-widest uppercase pr-10 transition-all ${error ? "border-red-400 focus:ring-red-200" : ""
