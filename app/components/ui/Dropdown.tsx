@@ -1,7 +1,12 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import {  FaChevronDown } from "react-icons/fa";
-export function Dropdown({ label, options }: { label: string; options: string[] }) {
+type Props = {
+  label?: string;
+  options: string[];
+  onSelect?: (value: string) => void; 
+};
+export function Dropdown({ label, options,onSelect }: Props) {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState<string | null>(null);
   const ref = useRef<HTMLDivElement>(null);
@@ -19,7 +24,7 @@ export function Dropdown({ label, options }: { label: string; options: string[] 
   return (
     <div ref={ref} className="relative">
       <button
-        onClick={() => setOpen((o) => !o)}
+        onClick={() => setOpen((o) => !o )}
         className="flex items-center gap-2 px-4 py-1.5 text-sm font-medium bg-white text-gray-600 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
       >
         {selected ?? label}
@@ -33,7 +38,7 @@ export function Dropdown({ label, options }: { label: string; options: string[] 
           {options.map((opt) => (
             <div
               key={opt}
-              onClick={() => { setSelected(opt); setOpen(false); }}
+              onClick={() => { setSelected(opt); setOpen(false);onSelect?.(opt); }}
               className={`px-4 py-2 text-sm cursor-pointer hover:bg-gray-50 transition-colors ${
                 selected === opt ? "text-[#046A38] font-medium" : "text-gray-600"
               }`}

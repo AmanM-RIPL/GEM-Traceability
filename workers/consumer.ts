@@ -1,5 +1,6 @@
 import { sendVerificationEmail } from "@/lib/nodemailmer/email";
 import amqp from "amqplib";
+
 interface SendMailMessage {
   action: "sendMails";
   email: string;
@@ -10,6 +11,7 @@ interface CacheInvalidationMessage {
   action: string;
   keys: SendMailMessage;
 }
+
 
 export const startCacheConsumer = async () => {
   try {
@@ -26,7 +28,6 @@ export const startCacheConsumer = async () => {
     await channel.assertQueue(queueName, { durable: true });
 
     channel.consume(queueName, async (msg) => {
-      console.log(msg, "nsnjnsaj");
       if (msg) {
         try {
           const content = JSON.parse(

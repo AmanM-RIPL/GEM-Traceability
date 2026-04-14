@@ -13,8 +13,6 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
-    // const data = await db.select().from(users).where(email);
-
     const existingUser = await db
       .select()
       .from(users)
@@ -22,17 +20,13 @@ export async function POST(req: NextRequest) {
       .limit(1);
 
     let result;
-
-
-    // 4. Send mail after DB success
-    // await sendMailJobs(email, verificationToken);
-
+    
     return NextResponse.json({
       success: true,
       message:
         existingUser.length > 0
-          ? "User already exists, verification token updated"
-          : "User created successfully",
+          ? true
+          : false,
       data: result,
     });
   } catch (error) {

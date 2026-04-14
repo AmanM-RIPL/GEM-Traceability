@@ -16,9 +16,9 @@ const Card: React.FC<CardProps> = ({
             </div>
         </Link>
     ) : (
-        <div className="absolute right-2 bottom-2 h-10 w-10 opacity-20">
-            {Icon}
-        </div>
+         <div className="absolute bottom-2 right-2 bg-white p-2 rounded-full bg-[#C6A75E80] [&>svg]:h-6 [&>svg]:w-6">
+        {Icon}
+      </div>
     );
 
     return (
@@ -26,7 +26,7 @@ const Card: React.FC<CardProps> = ({
             <div className="relative bg-white border border-gray-200 rounded-xl p-5 w-full h-25 flex flex-col justify-between overflow-hidden shadow-sm">
                 
                 <div>
-                    <p className="text-medium text-gray-500 mb-1">{title}</p>
+                    <h2 className="text-bold text-gray-500 mb-1">{title}</h2>
                     <p className="text-2xl font-medium text-gray-900">{value}</p>
                 </div>
                 

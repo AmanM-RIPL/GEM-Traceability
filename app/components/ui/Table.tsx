@@ -9,6 +9,7 @@ type TableProps<T> = {
   heading?: string;
   description?: string;
   data: T[];
+  tabs?:boolean;
   columns: readonly Column<T>[];
 };
 // const getStatusColor = (status: string) => {
@@ -32,6 +33,7 @@ function Table<T extends { id?: string | number }>({
   data,
   heading,
   description,
+  tabs,
   columns,
 }: TableProps<T>) {
   return (
@@ -47,6 +49,23 @@ function Table<T extends { id?: string | number }>({
           {description}
         </p>
       )}
+     {tabs && (
+       <div className="flex items-center gap-5">
+        <div className="relative">
+          <button         
+            className="border-2 border-[#046A38] text-[#046A38] hover:bg-[#046A38] hover:text-white font-bold text-sm py-1.5 px-4 rounded-md transition-colors"
+          >
+           Pending
+          </button>
+          <button         
+            className="border-2 border-[#046A38] bg-[#046A38] ml-2 text-white hover:bg-[#046A38] hover:text-white font-bold text-sm py-1.5 px-4 rounded-md transition-colors"
+          >
+            Approved
+          </button>
+          
+        </div>
+      </div>
+     )}
 
       <table className="w-full border border-gray-300 bg-white shadow-sm rounded-xl overflow-hidden">
         <thead>

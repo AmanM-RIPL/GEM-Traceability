@@ -28,22 +28,23 @@ const Tabs = memo(({ heading = "Recent Shipments", description = "Recent Shipmen
     />
   ), [heading, description]);
 
-  // const kycTable = useMemo(() => (
-  //   <Table
-  //     data={kycData}
-  //     columns={KYC_COLUMNS}
-  //     heading="KYC Overview"
-  //     description="KYC Verification Status"
-  //   />
-  // ), []);
+  const kycTable = useMemo(() => (
+    <Table
+      data={kycData}
+      columns={KYC_COLUMNS}
+      tabs={true}
+      heading="KYC Overview"
+      description="KYC Verification Status"
+    />
+  ), []);
 
   return (
     <div className="flex flex-col md:flex-row w-full gap-4">
-      <div className="w-full md:w-3/5 bg-gray-100 p-6">
+      <div className="w-full md:w-3/5 bg-white p-6">
         {shipmentTable}
       </div>
-      <div className="w-full md:w-2/5 bg-gray-100 p-6">
-        {/* {kycTable} */}
+      <div className="w-full md:w-2/5 bg-white p-6">
+        {kycTable}
       </div>
     </div>
   );

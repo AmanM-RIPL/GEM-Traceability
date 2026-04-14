@@ -32,12 +32,10 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
-
     const verificationToken = Math.floor(
       100000 + Math.random() * 900000
     ).toString();
 
-    const verificationTokenExpires = new Date(Date.now() + 30 * 60 * 1000);
 
     // 1. Check if email already exists
     const existingUser = await db
@@ -54,7 +52,8 @@ export async function POST(req: NextRequest) {
         .update(users)
         .set({
           verificationToken,
-          verificationTokenExpires,
+          lastLogin: new Date(),
+          verificationTokenExpires: new Date(Date.now() + 30 * 60 * 1000),
           isActive: true,
           // updatedAt: new Date(), // add this only if your schema has updatedAt
         })
@@ -68,8 +67,9 @@ export async function POST(req: NextRequest) {
           email,
           isActive: true,
           createdAt: new Date(),
+          lastLogin: new Date(),
           verificationToken,
-          verificationTokenExpires,
+          verificationTokenExpires: new Date(Date.now() + 30 * 60 * 1000),
         })
         .returning();
     }

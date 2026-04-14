@@ -6,11 +6,12 @@ import { useState } from "react";
 import Input from "../../components/ui/input";
 import { signInWithApple, signInWithGoogle } from "@/app/actions/auth";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/app/components/ui/input-otp";
-import { signIn } from "next-auth/react";
+import { ENV } from "@/lib/config";
+const checkEnvironment = ENV.isDev ;
 
 const Login = () => {
   const [email, setEmail] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [message, setMessage] = useState("");
   const [step, setStep] = useState<"email" | "otp">("email");
   const [otp, setOtp] = useState("");
@@ -20,11 +21,6 @@ const Login = () => {
     setIsLoading(true);
     setMessage("");
     try {
-//       const result = await signIn("credentials", {
-//   email,
-//   otp,
-//   redirect: false,
-// });
       const res = await fetch("/api/user", {
         method: "POST",
         headers: {
@@ -37,7 +33,7 @@ const Login = () => {
         throw new Error(data.message || "Something went wrong");
       }
       setMessage("Login email sent successfully ✅");
-      setEmail("");
+      // setEmail("");
       setStep("otp");
     } catch (error: any) {
       setMessage(error.message || "Something went wrong");
@@ -51,7 +47,7 @@ const Login = () => {
     setMessage("");
 
     try {
-      const res = await fetch("/api/verify-otp", {
+      const res = await fetch("/api/verifyemail", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -72,7 +68,9 @@ const Login = () => {
   return (
     <div className="min-h-screen grid grid-cols-1 lg:grid-cols-2">
       {/* Left — Form */}
+      
       <div className="bg-white flex items-center justify-center px-6 py-10 sm:px-10 sm:py-14 lg:px-12 lg:py-16 order-2 lg:order-1">
+        
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -197,10 +195,11 @@ const Login = () => {
           )}
 
           {/* Divider */}
-          <div className="my-5 text-center text-gray-400 text-sm">OR</div>
-
+         {checkEnvironment && (<div className="my-5 text-center text-gray-400 text-sm">OR</div>)}
+          
           {/* ✅ OAuth Buttons */}
-          <div className="space-y-3">
+         {checkEnvironment && (<div className="space-y-3" >
+         
             <button
               type="button"
               onClick={() => signInWithGoogle()}
@@ -218,7 +217,7 @@ const Login = () => {
               <FaApple />
               Continue with Apple
             </button>
-          </div>
+          </div>)}
 
         </motion.div>
       </div>

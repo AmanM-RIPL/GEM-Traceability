@@ -1,21 +1,27 @@
 // import amqp from "amqplib";
 import amqp, { Channel, ChannelModel } from "amqplib";
-
-// let connection: amqp.Connection | null = null;
-// let channel: amqp.Channel | null = null;
-let connection: ChannelModel  | null = null;
 let channel: Channel | null = null;
 
-const RABBITMQ_URL = process.env.RABBITMQ_URL || "amqp://admin:admin123@localhost:5672";
+export const QUEUES = {
+  MAIN: "mail-validations",
+  RETRY: "mail-validations-retry",
+  ERROR: "mail-validations-error",
+};
 
 export const connectRabbitMQ = async () => {
   try {
     if (channel) return;
+    const connection = await amqp.connect({
+      protocol: "amqp",
+      hostname: process.env.Rabbimq_Host,
+      port: 5672,
+      username: process.env.Rabbimq_Username,
+      password: process.env.Rabbimq_Password,
+    });
 
-   
-    if (!connection) {
-      connection = await amqp.connect(RABBITMQ_URL);
-    }
+    // if (!connection) {
+    //   connection = await amqp.connect(RABBITMQ_URL);
+    // }
 
     if (!connection) {
       throw new Error("Connection failed");
@@ -33,12 +39,10 @@ export const publishToQueue = async (queueName: string, message: any) => {
   if (!channel) {
     await connectRabbitMQ();
   }
-
   if (!channel) {
     console.error("Rabbitmq channel is not initialized");
     return;
   }
-
   console.log(queueName, "queueName");
   await channel.assertQueue(queueName, { durable: true });
 
@@ -47,7 +51,7 @@ export const publishToQueue = async (queueName: string, message: any) => {
   });
 };
 
-export const sendMailJobs = async (email:string,verificationToken:string) => {
+export const sendMailJobs = async (email: string, verificationToken: string) => {
   try {
     const user = {
       email: email,

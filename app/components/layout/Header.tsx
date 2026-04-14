@@ -4,8 +4,12 @@ import { FaBell } from "react-icons/fa6";
 import Link from "next/link";
 import { useState } from "react";
 import Input from "../ui/input";
+import { useSession } from "next-auth/react";
+import { Dropdown } from "../ui/Dropdown";
+import { signOutWithGoogle } from "@/app/actions/auth";
 
 const Header = () => {
+  const { data: session, status, } = useSession();
   const [showNotifications, setShowNotifications] = useState(false);
 
   return (
@@ -32,12 +36,18 @@ const Header = () => {
           )}
         </div>
 
-        <Link
-          href="/login"
-          className="border-2 border-[#046A38] text-[#046A38] hover:bg-[#046A38] hover:text-white font-bold text-sm py-1.5 px-4 rounded-md transition-colors"
-        >
-          Sign in
-        </Link>
+        {session ? (<Dropdown
+          label={session?.user?.name ?? undefined}
+          options={["logout", "Profile"]}
+          onSelect={(option:string) => {
+            if (option === "logout") {             
+              signOutWithGoogle();
+            }
+            if (option === "Profile") {
+              console.log("Go to profile");
+            }
+          }}
+        />) : ("Sign in")}
 
         <Link
           href="/signup"

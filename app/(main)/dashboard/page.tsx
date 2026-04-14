@@ -16,12 +16,7 @@ const CARD_DATA = [
   { title: "Active Shipment", value: 100 },
   { title: "Vehicle Tracked", value: 150 },
 ] as const;
-const User_DATA = [
-  { title: "Total Users", value: 200 },
-  { title: "Pending KYC", value: 50 },
-  { title: "Active Shipment", value: 100 },
-  { title: "Vehicle Tracked", value: 150 },
-] as const;
+
 const TABS_CONFIG = {
   heading: "Recent Shipments",
   description: "Recent Shipment Overview",
