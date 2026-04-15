@@ -3,10 +3,10 @@ import { motion } from "framer-motion";
 import { Loader, Mail, Gem } from "lucide-react";
 import { FaApple, FaGoogle } from "react-icons/fa";
 import { useState } from "react";
-import Input from "../../components/ui/input";
 import { signInWithApple, signInWithGoogle } from "@/app/actions/auth";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/app/components/ui/input-otp";
 import { ENV } from "@/lib/config";
+import Input from "@/app/components/ui/input";
 const checkEnvironment = ENV.isDev ;
 
 const Login = () => {
@@ -195,10 +195,10 @@ const Login = () => {
           )}
 
           {/* Divider */}
-         {checkEnvironment && (<div className="my-5 text-center text-gray-400 text-sm">OR</div>)}
+         <div className="my-5 text-center text-gray-400 text-sm">OR</div>
           
           {/* ✅ OAuth Buttons */}
-         {checkEnvironment && (<div className="space-y-3" >
+          <div className="space-y-3" >
          
             <button
               type="button"
@@ -217,7 +217,7 @@ const Login = () => {
               <FaApple />
               Continue with Apple
             </button>
-          </div>)}
+          </div>
 
         </motion.div>
       </div>

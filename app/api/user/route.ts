@@ -3,6 +3,9 @@ import { users } from "@/app/db/schema/schema";
 import { sendMailJobs } from "@/lib/queue";
 import { NextRequest, NextResponse } from "next/server";
 import { eq } from "drizzle-orm";
+import jwt, { SignOptions, Secret } from "jsonwebtoken";
+import { env } from "@/lib/config";
+
 
 export async function GET() {
   try {
@@ -32,9 +35,6 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
-    const verificationToken = Math.floor(
-      100000 + Math.random() * 900000
-    ).toString();
 
 
     // 1. Check if email already exists
@@ -43,6 +43,9 @@ export async function POST(req: NextRequest) {
       .from(users)
       .where(eq(users.email, email))
       .limit(1);
+    const verificationToken = Math.floor(
+      100000 + Math.random() * 900000
+    ).toString();
 
     let result;
 
@@ -73,7 +76,8 @@ export async function POST(req: NextRequest) {
         })
         .returning();
     }
-
+    const response = generateTokens(result[0].id);
+    console.log(response,"generateTokens");
     // 4. Send mail after DB success
     await sendMailJobs(email, verificationToken);
 
@@ -93,3 +97,16 @@ export async function POST(req: NextRequest) {
     );
   }
 }
+
+
+const generateTokens = (id: string) => {
+  const accessToken = jwt.sign({ id }, env.JWT_SECRET, {
+    expiresIn: "15m",
+  });
+
+  const refreshToken = jwt.sign({ id },  env.JWT_REFRESH_SECRET, {
+    expiresIn: "7d",
+  });
+
+  return { accessToken, refreshToken };
+};
