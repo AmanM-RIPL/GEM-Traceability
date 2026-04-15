@@ -3,7 +3,7 @@ import { Search } from "lucide-react";
 import { FaBell } from "react-icons/fa6";
 import Link from "next/link";
 import { useState } from "react";
-import Input from "../ui/input";
+import Input from "../ui/Input";
 import { useSession } from "next-auth/react";
 import { Dropdown } from "../ui/Dropdown";
 import { signOutWithGoogle } from "@/app/actions/auth";

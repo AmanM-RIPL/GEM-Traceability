@@ -6,7 +6,7 @@ import { useState } from "react";
 import { signInWithApple, signInWithGoogle } from "@/app/actions/auth";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/app/components/ui/input-otp";
 import { ENV } from "@/lib/config";
-import Input from "@/app/components/ui/input";
+import Input from "@/app/components/ui/Input";
 const checkEnvironment = ENV.isDev ;
 
 const Login = () => {
